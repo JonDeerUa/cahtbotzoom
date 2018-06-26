@@ -1,1 +1,1 @@
-web: python main.py
+worket: run main.py
