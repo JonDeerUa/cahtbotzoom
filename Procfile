@@ -1,0 +1,1 @@
+worker: paython main.py
