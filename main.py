@@ -1,5 +1,5 @@
 # бот адмін каналу
-#import telebot
+import telebot
 import constants
 bot = telebot.TeleBot(constants.token)
 bot.send_message(constants.chat_id, constants.start)
