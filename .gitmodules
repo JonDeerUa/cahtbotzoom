@@ -1,4 +1,0 @@
-[submodule "telegram/vendor/urllib3"]
-	path = telegram/vendor/ptb_urllib3
-	url = https://git.heroku.com/chatbotzoom.git
-	branch = ptb
