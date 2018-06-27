@@ -1,4 +1,5 @@
 # бот адмін каналу
+from telebot import TeleBot
 import telebot
 import constants
 bot = telebot.TeleBot(constants.token)
