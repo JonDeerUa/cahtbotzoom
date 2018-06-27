@@ -1,9 +1,5 @@
 # бот адмін каналу
-from TeleBot import (Bot, Update, ChatAction, TelegramError, User, InlineKeyboardMarkup,
-                      InlineKeyboardButton, InlineQueryResultArticle, InputTextMessageContent,
-                      ShippingOption, LabeledPrice)
-from TeleBot.error import BadRequest, InvalidToken, NetworkError, RetryAfter
-import TeleBot
+import telebot
 import constants
 bot = telebot.TeleBot(constants.token)
 bot.send_message(constants.chat_id, constants.start)
