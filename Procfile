@@ -1,1 +1,1 @@
-web: paython main.py
+worker: paython main.py
