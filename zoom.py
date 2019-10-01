@@ -362,7 +362,7 @@ def button_new(message):
         nw = 1
         h = open('n_status.txt', 'r')
         ds = h.read()
-        bot.send_message(message.chat.id, text.info_zak_no + '\n' + ds)
+        bot.send_message(message.chat.id, text.info_zak_no + ds)
         h.close()
     if b == '+':
         nw = 0
