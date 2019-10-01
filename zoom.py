@@ -771,7 +771,7 @@ def button_one(message):
     def send_dt(m):
         dtp = m.text
         date = open('n_seven_days.txt', 'w')
-        date.write(dtp + ' руб - 7 дней')
+        date.write(dtp)
         date.close()
         bot.send_message(constants.chat_r_id, dtp)
         bot.send_message(message.chat.id, text.info_save)
