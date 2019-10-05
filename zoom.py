@@ -13,7 +13,8 @@ nw = 0
 p1 = 0
 sp = 0
 i = 0
-ADM_ID = 477513583  # ID админа групы -----------------------------------------------
+
+ADM_ID = 441757334  # ID админа групы -----------------------------------------------
 bot = telebot.TeleBot(constants.token)
 bot.send_message(constants.chat_id, text.start)
 # NEW USER ---------------------------------------------------------------------------
@@ -21,10 +22,13 @@ bot.send_message(constants.chat_id, text.start)
 
 @bot.message_handler(content_types=['new_chat_members'])
 def handler_text(message):
+    h = open('tx_n.txt', 'r')
+    ntx = h.read()
+    h.close()
     h = open('n_seven_days.txt', 'r')
     ztx = h.read()
     h.close()
-    bot.reply_to(message, text.new_user.format(message.from_user.first_name) + text.tx_zk1 + text.post_n + text.tx_zk + text.new_user_pr + text.ps_pr + ztx + text.sev_d + text.z_c)
+    bot.reply_to(message, text.new_user.format(message.from_user.first_name) + text.tx_zk1 + ntx + text.tx_zk + text.new_user_pr + text.ps_pr + ztx + text.sev_d + text.z_c)
     # USER DELETE --------------------------------------------------------------------------
 
 
@@ -83,10 +87,13 @@ def set_ro(message):
         n = 1
         return
     if n == 2:
+        h = open('tx_s.txt', 'r')
+        stx = h.read()
+        h.close()
         h = open('s_seven_days.txt', 'r')
         ztx = h.read()
         h.close()
-        bot.send_message(message.chat.id, text.spam_post.format(message.from_user.first_name) + text.tx_zk1 + text.post_s + text.tx_zk + text.new_user_pr + text.ps_pr + ztx + text.sev_d + text.z_c)
+        bot.send_message(message.chat.id, text.spam_post.format(message.from_user.first_name) + text.tx_zk1 + stx + text.tx_zk + text.new_user_pr + text.ps_pr + ztx + text.sev_d + text.z_c)
         return
     if n >= 3:
         bot.delete_message(message.chat.id, message.message_id)
@@ -108,7 +115,7 @@ def handle_start(message):
     but_adm = types.InlineKeyboardButton(text=text.text_but_adm)
     kbo.add(button_st, button_sl, button_pv, button_b, button_vps)
     kbo.add(button_cl, button_s)
-    user_adm = 477513583  # ID - АДМИНА БОТА ------------------------------------------------
+    user_adm = 441757334  # ID - АДМИНА БОТА ------------------------------------------------
     if message.chat.id == user_adm:
         kbo.add(but_adm)
     bot.send_photo(message.chat.id, photo=open(constants.bot_img, 'rb'))
@@ -131,9 +138,9 @@ def button_adm(message):
     but_adm = types.InlineKeyboardButton(text=text.text_but_adm)
     kbo.add(button_st, button_sl, button_pv, button_b, button_vps)
     kbo.add(button_cl, button_s)
-    if message.chat.id == 477513583:  # ID - АДМИНА БОТА ------------------------------------------------
+    if message.chat.id == 441757334:  # ID - АДМИНА БОТА ------------------------------------------------
         kbo.add(but_adm)
-    bot.send_message(message.chat.id, '🏠 Вы вернулись в главное меню', reply_markup=kbo)
+    bot.send_message(message.chat.id, text.tx_wl, reply_markup=kbo)
 # MENU 🚀 Заказ рекламы---------------------------------------------------------------
 
 
@@ -148,52 +155,52 @@ def button_stat(message):
     button_t3 = types.InlineKeyboardButton(text=text.text_but_gm)
     zr.add(but_zak)
     zr.add(but_plus, but_new, but_spam, but_pros, button_t3)
-    bot.send_message(message.chat.id, text.info_button_stat, reply_markup=zr)
+    bot.send_message(message.chat.id, text.inf_but_st, reply_markup=zr)
 # МЕНЮ-💰 Заработать-------------------------------------------------------
 
 
 @bot.message_handler(func=lambda message: message.text == text.text_button_sal)
 def button_sal(message):
-        key = types.InlineKeyboardMarkup(row_width=1)
-        but_1 = types.InlineKeyboardButton(text=text.text_but_1,
-                                           callback_data=text.text_but_1)
-        but_3 = types.InlineKeyboardButton(text=text.text_but_3,
-                                           callback_data=text.text_but_3)
-        but_4 = types.InlineKeyboardButton(text=text.text_but_4,
-                                           callback_data=text.text_but_4)
-        key.add(but_4, but_3, but_1)
-        bot.send_message(message.chat.id, text.text_info, reply_markup=key)
+    key = types.InlineKeyboardMarkup(row_width=1)
+    but_1 = types.InlineKeyboardButton(text=text.text_but_1, callback_data=text.text_but_1)
+    but_3 = types.InlineKeyboardButton(text=text.text_but_3, callback_data=text.text_but_3)
+    but_4 = types.InlineKeyboardButton(text=text.text_but_4, callback_data=text.text_but_4)
+    but_2 = types.InlineKeyboardButton(text=text.text_but_2, callback_data=text.text_but_2)
+    key.add(but_4, but_3, but_2, but_1)
+    bot.send_message(message.chat.id, text.text_info, reply_markup=key)
 # MENU 📃 Правила чата----------------------------------------------------------------
 
 
 @bot.message_handler(func=lambda message: message.text == text.text_button_pra)
 def button_pra(message):
-        bot.send_message(message.chat.id, text.info_button_pra)
+    bot.send_message(message.chat.id, text.info_button_pra)
 # MENU 🤖 Что я умею----------------------------------------------------------------
 
 
 @bot.message_handler(func=lambda message: message.text == text.text_button_bot)
 def button_bot(message):
-        bot.send_message(message.chat.id, text.info_button_bot)
+    bot.send_message(message.chat.id, text.info_button_bot)
 # MENU 💬 Обратная связь----------------------------------------------------------------
 
 
 @bot.message_handler(func=lambda message: message.text == text.text_button_vs)
 def button_vs(message):
     key = types.InlineKeyboardMarkup(row_width=1)
+    but_pay = types.InlineKeyboardButton(text=text.text_but_pay, callback_data=text.text_but_pay)
     but_cont = types.InlineKeyboardButton(text=text.text_vp, url=constants.cont)
-    key.add(but_cont)
+    key.add(but_pay, but_cont)
     bot.send_message(message.chat.id, text.info_button_vs, reply_markup=key)
+    bot.send_message(constants.chat_r_id, text.text_button_vs)
 # МЕНЮ 📣 Каталог каналов------------------------------------------------------
 
 
 @bot.message_handler(func=lambda message: message.text == text.text_button_cha)
 def button_cha(message):
-        key = types.InlineKeyboardMarkup(row_width=1)
-        but_rch = types.InlineKeyboardButton(text=text.text_vh, url=constants.pic_url)
-        key.add(but_rch)
-        bot.send_photo(message.chat.id, photo=open(constants.pic_img, 'rb'))
-        bot.send_message(message.chat.id, text.info_1000, reply_markup=key)
+    key = types.InlineKeyboardMarkup(row_width=1)
+    but_rch = types.InlineKeyboardButton(text=text.text_vh, url=constants.pic_url)
+    key.add(but_rch)
+    bot.send_photo(message.chat.id, photo=open(constants.pic_img, 'rb'))
+    bot.send_message(message.chat.id, text.info_1000, reply_markup=key)
 # МЕНЮ 🎯 Рекламный чат------------------------------------------------------
 
 
@@ -227,9 +234,10 @@ def button_adm(message):
     button_t4 = types.InlineKeyboardButton(text=text.tx_n_red)
     button_t5 = types.InlineKeyboardButton(text=text.tx_s_red)
     button_t6 = types.InlineKeyboardButton(text=text.tx_1_red)
+    button_t7 = types.InlineKeyboardButton(text=text.text_but_vid)
     button_t3 = types.InlineKeyboardButton(text=text.text_but_gm)
-    kbo.add(button_t1, button_t2, button_t4, button_t5, button_t6, button_t3)
-    bot.send_message(message.chat.id, 'Добро пожаловать, шеф! Что будем делать?', reply_markup=kbo)
+    kbo.add(button_t1, button_t2, button_t4, button_t5, button_t6, button_t7, button_t3)
+    bot.send_message(message.chat.id, text.tx_wl_bos, reply_markup=kbo)
 # Кнопка АДМИНКА КНОПКА НАЗАД ---------------------------------------------------------------
 
 
@@ -241,9 +249,10 @@ def button_nz(message):
     button_t4 = types.InlineKeyboardButton(text=text.tx_n_red)
     button_t5 = types.InlineKeyboardButton(text=text.tx_s_red)
     button_t6 = types.InlineKeyboardButton(text=text.tx_1_red)
+    button_t7 = types.InlineKeyboardButton(text=text.text_but_vid)
     button_t3 = types.InlineKeyboardButton(text=text.text_but_gm)
-    kbo.add(button_t1, button_t2, button_t4, button_t5, button_t6, button_t3)
-    bot.send_message(message.chat.id, '✖ Вы вернулись в оновное меню', reply_markup=kbo)
+    kbo.add(button_t1, button_t2, button_t4, button_t5, button_t6, button_t7, button_t3)
+    bot.send_message(message.chat.id, text.tx_wl, reply_markup=kbo)
 # Кнопка МЕНЮ 🚀 Заказ рекламы--------------------------------------------------------------->>>>
 # Кнопка 📌 Ваш пост в закрепе ЗАКАЗ-------------------------------------------------------
 
@@ -286,7 +295,10 @@ def button_sd(message):
             bot.send_message(constants.chat_r_id, p)
             bot.send_message(constants.chat_r_id, m.text)
             bot.send_message(p, text.info_zak_yes_2.format(message.from_user.first_name) + text.inf_g + text.inf_p)
-            bot.send_message(p, text.in_un + message.from_user.username)
+            key = types.InlineKeyboardMarkup(row_width=1)
+            but_pay = types.InlineKeyboardButton(text=text.text_but_pay, callback_data=text.text_but_pay)
+            key.add(but_pay)
+            bot.send_message(p, text.in_un + message.from_user.username, reply_markup=key)
             zkr = open('zak_status.txt', 'w')
             zkr.write('-\n' + text.status_1)
             zkr.close()
@@ -295,54 +307,56 @@ def button_sd(message):
             ks.add(b_gs)
             global t
             t = 1
-            print(message)
 # Кнопка ➕ Реклама плюс ЗАКАЗ----------------------------------------------------------------
 
 
 @bot.message_handler(func=lambda message: message.text == text.text_but_plus)
 def button_pl(message):
-        global pl
-        h = open('pl_one_day.txt', 'r')
-        opl = h.read()
-        h.close()
-        f = open('pl_seven_days.txt', 'r')
-        spr = f.read()
-        f.close()
-        bot.send_message(constants.chat_r_id, text.text_but_plus)
-        bot.send_message(message.chat.id, text.info_but_plus + text.ps_pr + opl + text.on_d + text.ps_pr + spr + text.sev_d)
+    global pl
+    h = open('pl_one_day.txt', 'r')
+    opl = h.read()
+    h.close()
+    f = open('pl_seven_days.txt', 'r')
+    spr = f.read()
+    f.close()
+    bot.send_message(constants.chat_r_id, text.text_but_plus)
+    bot.send_message(message.chat.id, text.info_but_plus + text.ps_pr + opl + text.on_d + text.ps_pr + spr + text.sev_d)
+    h = open('pl_status.txt', 'r')
+    d = h.read(1)
+    h.close()
+    if d == '-':
+        pl = 1
         h = open('pl_status.txt', 'r')
-        d = h.read(1)
+        ds = h.read()
+        bot.send_message(message.chat.id, text.info_zak_no + '\n' + ds)
         h.close()
-        if d == '-':
-            pl = 1
-            h = open('pl_status.txt', 'r')
-            ds = h.read()
-            bot.send_message(message.chat.id, text.info_zak_no + '\n' + ds)
-            h.close()
-        if d == '+':
-            pl = 0
-            kzz = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
-            b_gm = types.InlineKeyboardButton(text=text.text_but_gm)
-            kzz.add(b_gm)
-            bot.send_message(message.chat.id, text.info_zak_yes_1, reply_markup=kzz)
+    if d == '+':
+        pl = 0
+        kzz = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
+        b_gm = types.InlineKeyboardButton(text=text.text_but_gm)
+        kzz.add(b_gm)
+        bot.send_message(message.chat.id, text.info_zak_yes_1, reply_markup=kzz)
 
-            @bot.message_handler(func=lambda a: pl == 0)
-            def send_z_zak(m):
-                global p
-                p = message.chat.id
-                bot.send_message(constants.chat_r_id, m.from_user.username)
-                bot.send_message(constants.chat_r_id, p)
-                bot.send_message(constants.chat_r_id, m.text)
-                bot.send_message(p, text.info_zak_yes_2.format(message.from_user.first_name) + text.inf_g + text.inf_p)
-                bot.send_message(p, text.in_un + message.from_user.username)
-                fpl = open('pl_status.txt', 'w')
-                fpl.write('-\n' + text.status_1)
-                fpl.close()
-                ks = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
-                b_gs = types.InlineKeyboardButton(text=text.text_but_gm)
-                ks.add(b_gs)
-                global pl
-                pl = 1
+        @bot.message_handler(func=lambda a: pl == 0)
+        def send_z_zak(m):
+            global p
+            p = message.chat.id
+            bot.send_message(constants.chat_r_id, m.from_user.username)
+            bot.send_message(constants.chat_r_id, p)
+            bot.send_message(constants.chat_r_id, m.text)
+            bot.send_message(p, text.info_zak_yes_2.format(message.from_user.first_name) + text.inf_g + text.inf_p)
+            key = types.InlineKeyboardMarkup(row_width=1)
+            but_pay = types.InlineKeyboardButton(text=text.text_but_pay, callback_data=text.text_but_pay)
+            key.add(but_pay)
+            bot.send_message(p, text.in_un + message.from_user.username, reply_markup=key)
+            fpl = open('pl_status.txt', 'w')
+            fpl.write('-\n' + text.status_1)
+            fpl.close()
+            ks = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
+            b_gs = types.InlineKeyboardButton(text=text.text_but_gm)
+            ks.add(b_gs)
+            global pl
+            pl = 1
 # Кнопка 👥 Новый учасник--ЗАКАЗ-------------------------------------------------------------
 
 
@@ -362,7 +376,7 @@ def button_new(message):
         nw = 1
         h = open('n_status.txt', 'r')
         ds = h.read()
-        bot.send_message(message.chat.id, text.info_zak_no + '/n' + ds)
+        bot.send_message(message.chat.id, text.info_zak_no + '\n' + ds)
         h.close()
     if b == '+':
         nw = 0
@@ -379,7 +393,10 @@ def button_new(message):
             bot.send_message(constants.chat_r_id, p)
             bot.send_message(constants.chat_r_id, m.text)
             bot.send_message(p, text.info_zak_yes_2.format(message.from_user.first_name) + text.inf_g + text.inf_p)
-            bot.send_message(p, text.in_un + message.from_user.username)
+            key = types.InlineKeyboardMarkup(row_width=1)
+            but_pay = types.InlineKeyboardButton(text=text.text_but_pay, callback_data=text.text_but_pay)
+            key.add(but_pay)
+            bot.send_message(p, text.in_un + message.from_user.username, reply_markup=key)
             fpl = open('n_status.txt', 'w')
             fpl.write('-\n' + text.status_1)
             fpl.close()
@@ -424,7 +441,10 @@ def button_new(message):
             bot.send_message(constants.chat_r_id, p)
             bot.send_message(constants.chat_r_id, m.text)
             bot.send_message(p, text.info_zak_yes_2.format(message.from_user.first_name) + text.inf_g + text.inf_p)
-            bot.send_message(p, text.in_un + message.from_user.username)
+            key = types.InlineKeyboardMarkup(row_width=1)
+            but_pay = types.InlineKeyboardButton(text=text.text_but_pay, callback_data=text.text_but_pay)
+            key.add(but_pay)
+            bot.send_message(p, text.in_un + message.from_user.username, reply_markup=key)
             fpl = open('s_status.txt', 'w')
             fpl.write('-\n' + text.status_1)
             fpl.close()
@@ -443,7 +463,7 @@ def button_new(message):
     ntx = h.read()
     h.close()
     bot.send_message(message.chat.id, text.info_but_1000)
-    bot.send_message(message.chat.id, text.ps_pr + ntx + ' руб - за 1000 просмотров')
+    bot.send_message(message.chat.id, text.ps_pr + ntx + text.tx_1)
     bot.send_message(constants.chat_r_id, text.text_but_pros)
     h = open('1_status.txt', 'r')
     b = h.read(1)
@@ -456,9 +476,9 @@ def button_new(message):
         kzz = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
         b_gm = types.InlineKeyboardButton(text=text.text_but_gm)
         kzz.add(b_gm)
-        bot.send_message(message.chat.id, text.info_zak_spam, reply_markup=kzz)
+        bot.send_message(message.chat.id, text.info_zak_yes_1, reply_markup=kzz)
 
-        @bot.message_handler(func=lambda a: sp == 0)
+        @bot.message_handler(func=lambda a: p1 == 0)
         def send_z_zak(m):
             global p
             p = message.chat.id
@@ -466,15 +486,18 @@ def button_new(message):
             bot.send_message(constants.chat_r_id, p)
             bot.send_message(constants.chat_r_id, m.text)
             bot.send_message(p, text.info_zak_yes_2.format(message.from_user.first_name) + text.inf_g + text.inf_p)
-            bot.send_message(p, text.in_un + message.from_user.username)
+            key = types.InlineKeyboardMarkup(row_width=1)
+            but_pay = types.InlineKeyboardButton(text=text.text_but_pay, callback_data=text.text_but_pay)
+            key.add(but_pay)
+            bot.send_message(p, text.in_un + message.from_user.username, reply_markup=key)
             fpl = open('s_status.txt', 'w')
             fpl.write('-\n' + text.status_1)
             fpl.close()
             ks = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
             b_gs = types.InlineKeyboardButton(text=text.text_but_gm)
             ks.add(b_gs)
-            global sp
-            sp = 1
+            global p1
+            p1 = 1
 # MENU КНОПКИ ОТВЕТА ГЛАВНОГО МЕНЮ--------------------------------------------------------------
 
 
@@ -482,22 +505,42 @@ def button_new(message):
 def fin(c):
     if c.data == text.text_but_1:
         bot.send_message(c.message.chat.id, text.info_button_sal)
+        bot.send_message(constants.chat_r_id, text.text_but_1)
     if c.data == text.text_but_3:
         markup = types.InlineKeyboardMarkup()
         btn_mg = types.InlineKeyboardButton(text=text.text_vh, url=constants.cat_url)
         markup.add(btn_mg)
         bot.send_photo(c.message.chat.id, photo=open(constants.cat_img, 'rb'))
         bot.send_message(c.message.chat.id, text.tx_bot_tmo, reply_markup=markup)
+        bot.send_message(constants.chat_r_id, text.text_but_3)
+    if c.data == text.text_but_2:
+        markup = types.InlineKeyboardMarkup()
+        btn_mg = types.InlineKeyboardButton(text=text.text_vh, url=constants.wmz_url)
+        markup.add(btn_mg)
+        bot.send_photo(c.message.chat.id, photo=open(constants.wmz_pic, 'rb'))
+        bot.send_message(c.message.chat.id, text.inf_gr, reply_markup=markup)
+        bot.send_message(constants.chat_r_id, text.text_but_2)
     if c.data == text.text_but_4:
         key = types.InlineKeyboardMarkup(row_width=1)
         but_bonus = types.InlineKeyboardButton(text=text.text_bonus, callback_data=text.text_bonus)
         key.add(but_bonus)
         bot.send_message(c.message.chat.id, text.info_bot_4, reply_markup=key)
+        bot.send_message(constants.chat_r_id, text.text_but_4)
     if c.data == text.text_bonus:
-        markup = types.InlineKeyboardMarkup()
-        btn_bon = types.InlineKeyboardButton(text=text.text_zak, url=constants.cont)
-        markup.add(btn_bon)
-        bot.send_message(c.message.chat.id, text.info_sponsor, reply_markup=markup)
+        key = types.InlineKeyboardMarkup(row_width=1)
+        but_bon = types.InlineKeyboardButton(text=text.text_zak, callback_data=text.text_zak)
+        key.add(but_bon)
+        bot.send_message(c.message.chat.id, text.info_sponsor, reply_markup=key)
+        bot.send_message(constants.chat_r_id, text.text_bonus)
+    if c.data == text.text_zak:
+        kzz = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
+        bot.send_message(c.message.chat.id, text.tx_no_z, reply_markup=kzz)
+    if c.data == text.text_but_pay:
+        kzz = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
+        bot.send_message(c.message.chat.id, text.tx_wall, reply_markup=kzz)
+        bot.send_message(c.message.chat.id, text.tx_w1, reply_markup=kzz)
+        bot.send_message(c.message.chat.id, text.tx_w2, reply_markup=kzz)
+        bot.send_message(c.message.chat.id, text.tx_w3, reply_markup=kzz)
 # Кнопка 📌 Ред. закреп------------------------------------------------------->>>>>>>>>
 
 
@@ -508,8 +551,9 @@ def button_zak(message):
     b_z_no = types.InlineKeyboardButton(text=text.tx_z_off)
     b_z_tx = types.InlineKeyboardButton(text=text.tx_z_rtx)
     b_z_pr = types.InlineKeyboardButton(text=text.tx_z_rpr)
+    b_z_sms = types.InlineKeyboardButton(text=text.tx_z_sms)
     b_z_nd = types.InlineKeyboardButton(text=text.text_but_nz)
-    kzr.add(b_z_yes, b_z_no, b_z_tx, b_z_pr, b_z_nd)
+    kzr.add(b_z_yes, b_z_no, b_z_tx, b_z_pr, b_z_sms, b_z_nd)
     h = open('tx_zak.txt', 'r')
     ztx = h.read()
     h.close()
@@ -560,7 +604,7 @@ def button_sd(message):
     ztx = h.read()
     h.close()
     bot.send_message(message.chat.id, text.info_but_zak + ztx + '\n' + text.info_lin)
-    bot.send_message(message.chat.id, 'Введите новый текст')
+    bot.send_message(message.chat.id, 'Введіть новий текст')
 
     @bot.message_handler(func=lambda f: message.chat.id == ADM_ID)
     def send_dt(m):
@@ -583,18 +627,18 @@ def button_sd(message):
     spr = f.read()
     f.close()
     kzp = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
-    b_z_1 = types.InlineKeyboardButton(text='💰 цена за 1 день')
-    b_z_7 = types.InlineKeyboardButton(text='💰 цена за 7 дней')
+    b_z_1 = types.InlineKeyboardButton(text=text.pr_one)
+    b_z_7 = types.InlineKeyboardButton(text=text.pr_sev)
     b_z_nd = types.InlineKeyboardButton(text=text.text_but_nz)
     kzp.add(b_z_1, b_z_7, b_z_nd)
     bot.send_message(message.chat.id, text.info_lin + text.post_pr + opr + text.on_d + text.ps_pr + spr + text.sev_d)
-    bot.send_message(message.chat.id, 'Что нужно изменить?', reply_markup=kzp)
+    bot.send_message(message.chat.id, text.tx_wtf, reply_markup=kzp)
 # Меню ред.закреп - кнопка 📈 Ред. цену (📌) РЕДАКТОР 💰 цена за 1 день---------------------------------------------
 
 
-@bot.message_handler(func=lambda message: message.text == '💰 цена за 1 день')
+@bot.message_handler(func=lambda message: message.text == text.pr_one)
 def button_one(message):
-    bot.send_message(message.chat.id, 'Введите цену за 1 день')
+    bot.send_message(message.chat.id, text.pr_one_v)
 
     @bot.message_handler(func=lambda pr: message.chat.id == ADM_ID)
     def send_dt(m):
@@ -608,9 +652,9 @@ def button_one(message):
 # Меню ред.закреп - кнопка 📈 Ред. цену (📌) РЕДАКТОР 💰 цена за 7 дн---------------------------------------------
 
 
-@bot.message_handler(func=lambda message: message.text == '💰 цена за 7 дней')
+@bot.message_handler(func=lambda message: message.text == text.pr_sev)
 def button_one(message):
-    bot.send_message(message.chat.id, 'Введите цену за 7 дней')
+    bot.send_message(message.chat.id, text.pr_sev_v)
 
     @bot.message_handler(func=lambda pr: message.chat.id == ADM_ID)
     def send_dt(m):
@@ -620,6 +664,23 @@ def button_one(message):
         date.close()
         bot.send_message(constants.chat_r_id, dtp)
         bot.send_message(message.chat.id, text.info_save)
+        message.chat.id = 0
+# Меню ред.закреп - кнопка 📨 Повідомити (📌)---------------------------------------------
+
+
+@bot.message_handler(func=lambda message: message.text == text.tx_z_sms)
+def button_sd(message):
+    bot.send_message(message.chat.id, text.id_zam)
+
+    @bot.message_handler(func=lambda d: message.chat.id == ADM_ID)
+    def send_sms(m):
+        h = open('zak_status.txt', 'r')
+        ztx = h.read()
+        h.close()
+        sd = m.text
+        message.chat.id = sd
+        bot.send_message(message.chat.id, text.tx_sms_zak + ztx)
+        bot.send_message(constants.chat_r_id, text.tx_sms_zak + ztx)
         message.chat.id = 0
 # Кнопка РЕД Реклама ПЛЮС ➕ Реклама плюс------------------------------------------------------->>>>>
 
@@ -637,9 +698,10 @@ def button_zak(message):
     b_z_no = types.InlineKeyboardButton(text=text.tx_pl_off)
     b_z_tx = types.InlineKeyboardButton(text=text.tx_pl_rtx)
     b_z_pr = types.InlineKeyboardButton(text=text.tx_pl_light)
-    b_id_post = types.InlineKeyboardButton(text='🆔 ID post')
+    b_id_post = types.InlineKeyboardButton(text=text.tx_id_post)
+    b_sms_pl = types.InlineKeyboardButton(text=text.tx_pl_sms)
     b_z_nd = types.InlineKeyboardButton(text=text.text_but_nz)
-    kzr.add(b_z_yes, b_z_no, b_z_tx, b_z_pr, b_id_post, b_z_nd)
+    kzr.add(b_z_yes, b_z_no, b_z_tx, b_z_pr, b_id_post, b_sms_pl, b_z_nd)
     bot.send_message(message.chat.id, text.info_but_plus + text.ps_pr + opl + text.on_d + text.ps_pr + spr + text.sev_d)
     bot.send_message(message.chat.id, text.inf_red, reply_markup=kzr)
 # Меню ред.реклама ПЛЮС - кнопка ➕ Свободно ------------------------------------
@@ -675,7 +737,7 @@ def button_sd(message):
 
 @bot.message_handler(func=lambda message: message.text == text.tx_pl_rtx)
 def button_one(message):
-    bot.send_message(message.chat.id, 'Введите цену за 1 день')
+    bot.send_message(message.chat.id, text.pr_one_v)
 
     @bot.message_handler(func=lambda pr: message.chat.id == ADM_ID)
     def send_dt(m):
@@ -691,7 +753,7 @@ def button_one(message):
 
 @bot.message_handler(func=lambda message: message.text == text.tx_pl_light)
 def button_one(message):
-    bot.send_message(message.chat.id, 'Введите цену за 7 дней')
+    bot.send_message(message.chat.id, text.pr_sev_v)
 
     @bot.message_handler(func=lambda pr: message.chat.id == ADM_ID)
     def send_dt(m):
@@ -705,12 +767,29 @@ def button_one(message):
 # Меню ред.реклама плюс - кнопка 🆔 ID post-------------------------------------------------------
 
 
-@bot.message_handler(func=lambda message: message.text == '🆔 ID post')
+@bot.message_handler(func=lambda message: message.text == text.tx_id_post)
 def button_sd(m):
-    bot.send_message(constants.chat_r_id, 'Перешлите пост в рекламный чат')
+    bot.send_message(constants.chat_r_id, text.inf_for_pl)
     global i
     i = 1
     m.i = 1
+# Меню ред.реклама плюс - кнопка 📨 Повідомити ---------------------------------------------
+
+
+@bot.message_handler(func=lambda message: message.text == text.tx_pl_sms)
+def button_sd(message):
+    bot.send_message(message.chat.id, text.id_zam)
+
+    @bot.message_handler(func=lambda d: message.chat.id == ADM_ID)
+    def send_sms(m):
+        h = open('pl_status.txt', 'r')
+        ztx = h.read()
+        h.close()
+        sd = m.text
+        message.chat.id = sd
+        bot.send_message(message.chat.id, text.tx_sms_pl + ztx)
+        bot.send_message(constants.chat_r_id, text.tx_sms_pl + ztx)
+        message.chat.id = 0
 # Кнопка 👥 Новый учасник--РЕДАКТОР------------------------------------------------------------>>>>
 
 
@@ -724,8 +803,9 @@ def button_new(message):
     b_n_no = types.InlineKeyboardButton(text=text.tx_n_off)
     b_n_pr = types.InlineKeyboardButton(text=text.tx_n_rpr)
     b_n_rp = types.InlineKeyboardButton(text=text.tx_n_rp)
+    b_n_sms = types.InlineKeyboardButton(text=text.tx_n_sms)
     b_z_nd = types.InlineKeyboardButton(text=text.text_but_nz)
-    kzr.add(b_n_yes, b_n_no, b_n_pr, b_n_rp, b_z_nd)
+    kzr.add(b_n_yes, b_n_no, b_n_pr, b_n_rp, b_n_sms, b_z_nd)
     bot.send_message(message.chat.id, text.inf_red + text.ps_pr + ntx + text.sev_d, reply_markup=kzr)
 # Меню ред.Новий учасник - кнопка  🔛 Свободно(👥)-----------------------------------------------------
 
@@ -765,7 +845,7 @@ def button_sd(message):
 
 @bot.message_handler(func=lambda message: message.text == text.tx_n_rpr)
 def button_one(message):
-    bot.send_message(message.chat.id, 'Введите цену за 7 дней')
+    bot.send_message(message.chat.id, text.pr_sev_v)
 
     @bot.message_handler(func=lambda pr: message.chat.id == ADM_ID)
     def send_dt(m):
@@ -784,8 +864,8 @@ def button_n(message):
     h = open('tx_n.txt', 'r')
     ntx = h.read()
     h.close()
-    bot.send_message(message.chat.id, 'Рекламный пост:\n' + ntx)
-    bot.send_message(message.chat.id, 'Введите новый текст')
+    bot.send_message(message.chat.id, text.rek_post + ntx)
+    bot.send_message(message.chat.id, text.new_tx)
 
     @bot.message_handler(func=lambda f: message.chat.id == ADM_ID)
     def send_dt(m):
@@ -795,6 +875,23 @@ def button_n(message):
         date.close()
         bot.send_message(constants.chat_r_id, dtp)
         bot.send_message(message.chat.id, text.info_save)
+        message.chat.id = 0
+# Меню Ред. Новий учасник - кнопка 📨 Повідомити ---------------------------------------------
+
+
+@bot.message_handler(func=lambda message: message.text == text.tx_n_sms)
+def button_sd(message):
+    bot.send_message(message.chat.id, text.id_zam)
+
+    @bot.message_handler(func=lambda d: message.chat.id == ADM_ID)
+    def send_sms(m):
+        h = open('n_status.txt', 'r')
+        ztx = h.read()
+        h.close()
+        sd = m.text
+        message.chat.id = sd
+        bot.send_message(message.chat.id, text.tx_sms_n + ztx)
+        bot.send_message(constants.chat_r_id, text.tx_sms_n + ztx)
         message.chat.id = 0
 # Кнопка 🔕 Ред. Анти спам--РЕДАКТОР------------------------------------------------------->>>>>>>>>>>>>>>>>>>>
 
@@ -809,8 +906,9 @@ def button_new(message):
     b_n_no = types.InlineKeyboardButton(text=text.tx_s_off)
     b_n_pr = types.InlineKeyboardButton(text=text.tx_s_rpr)
     b_n_rp = types.InlineKeyboardButton(text=text.tx_s_rp)
+    b_s_rp = types.InlineKeyboardButton(text=text.tx_s_sms)
     b_z_nd = types.InlineKeyboardButton(text=text.text_but_nz)
-    kzr.add(b_n_yes, b_n_no, b_n_pr, b_n_rp, b_z_nd)
+    kzr.add(b_n_yes, b_n_no, b_n_pr, b_n_rp, b_s_rp, b_z_nd)
     bot.send_message(message.chat.id, text.inf_red + text.ps_pr + ntx + text.sev_d, reply_markup=kzr)
 # Меню ред.Анти спам - кнопка  🔛 Свободно(🔕)-----------------------------------------------------
 
@@ -850,7 +948,7 @@ def button_sd(message):
 
 @bot.message_handler(func=lambda message: message.text == text.tx_s_rpr)
 def button_one(message):
-    bot.send_message(message.chat.id, 'Введите цену за 7 дней')
+    bot.send_message(message.chat.id, text.pr_sev_v)
 
     @bot.message_handler(func=lambda pr: message.chat.id == ADM_ID)
     def send_dt(m):
@@ -871,8 +969,8 @@ def button_n(message):
     h = open('tx_s.txt', 'r')
     ntx = h.read()
     h.close()
-    bot.send_message(message.chat.id, 'Рекламный пост:\n' + ntx)
-    bot.send_message(message.chat.id, 'Введите новый текст')
+    bot.send_message(message.chat.id, text.rek_post + ntx)
+    bot.send_message(message.chat.id, text.new_tx)
 
     @bot.message_handler(func=lambda f: message.chat.id == ADM_ID)
     def send_dt(m):
@@ -882,6 +980,23 @@ def button_n(message):
         date.close()
         bot.send_message(constants.chat_r_id, dtp)
         bot.send_message(message.chat.id, text.info_save)
+        message.chat.id = 0
+# Меню Ред. Анти спам - кнопка 🚀 📨 Повідомити ---------------------------------------------
+
+
+@bot.message_handler(func=lambda message: message.text == text.tx_s_sms)
+def button_sd(message):
+    bot.send_message(message.chat.id, text.id_zam)
+
+    @bot.message_handler(func=lambda d: message.chat.id == ADM_ID)
+    def send_sms(m):
+        h = open('s_status.txt', 'r')
+        ztx = h.read()
+        h.close()
+        sd = m.text
+        message.chat.id = sd
+        bot.send_message(message.chat.id, text.tx_sms_s + ztx)
+        bot.send_message(constants.chat_r_id, text.tx_sms_s + ztx)
         message.chat.id = 0
 # Кнопка 👁 Ред. 1.000--РЕДАКТОР------------------------------------------------------>>>>>>>>>>>>>
 
@@ -895,9 +1010,10 @@ def button_new(message):
     b_n_yes = types.InlineKeyboardButton(text=text.tx_1_on)
     b_n_no = types.InlineKeyboardButton(text=text.tx_1_off)
     b_n_pr = types.InlineKeyboardButton(text=text.tx_1_rpr)
+    b_sms_pr = types.InlineKeyboardButton(text=text.tx_1_sms)
     b_z_nd = types.InlineKeyboardButton(text=text.text_but_nz)
-    kzr.add(b_n_yes, b_n_no, b_n_pr, b_z_nd)
-    bot.send_message(message.chat.id, text.inf_red + text.ps_pr + ntx + ' руб - за 1000 просмотров', reply_markup=kzr)
+    kzr.add(b_n_yes, b_n_no, b_n_pr, b_sms_pr, b_z_nd)
+    bot.send_message(message.chat.id, text.inf_red + text.ps_pr + ntx + text.tx_1, reply_markup=kzr)
 # Меню ред.👁 Ред. 1.000 - кнопка  🔛 Свободно(👁)-----------------------------------------------------
 
 
@@ -909,6 +1025,7 @@ def button_sd(message):
     h.write('+')
     h.close()
     bot.send_message(message.chat.id, text.info_save)
+    message.chat.id = 0
 # Меню ред.👁 Ред. 1.000 - кнопка 🔚 Занято(👁)-----------------------------------------------------
 
 
@@ -924,7 +1041,7 @@ def button_sd(message):
 
 @bot.message_handler(func=lambda message: message.text == text.tx_1_rpr)
 def button_one(message):
-    bot.send_message(message.chat.id, 'Введите цену за 1000 👁')
+    bot.send_message(message.chat.id, text.pr_1000)
 
     @bot.message_handler(func=lambda pr: message.chat.id == ADM_ID)
     def send_dt(m):
@@ -935,6 +1052,67 @@ def button_one(message):
         bot.send_message(constants.chat_r_id, dtp)
         bot.send_message(message.chat.id, text.info_save)
         message.chat.id = 0
+# Меню Ред. 👁 Ред. 1.000 📨 Повідомити ---------------------------------------------
+
+
+@bot.message_handler(func=lambda message: message.text == text.tx_1_sms)
+def button_sd(message):
+    bot.send_message(message.chat.id, text.id_zam)
+
+    @bot.message_handler(func=lambda d: message.chat.id == ADM_ID)
+    def send_sms(m):
+        message.chat.id = m.text
+        bot.send_message(message.chat.id, text.tx_sms_p1)
+        bot.send_message(constants.chat_r_id, text.tx_sms_p1)
+        message.chat.id = 0
+# Кнопка Відповісти довільна форма------------------------------------------------------>>>>>>>>>>>>>
+
+
+@bot.message_handler(func=lambda message: message.text == text.text_but_vid)
+def button_new(message):
+    kzr = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
+    b_vp_id = types.InlineKeyboardButton(text=text.id_otr)
+    b_vp_sms = types.InlineKeyboardButton(text=text.sms_zagal)
+    b_vp_cl = types.InlineKeyboardButton(text=text.cl_zag)
+    b_z_nd = types.InlineKeyboardButton(text=text.text_but_nz)
+    kzr.add(b_vp_id, b_vp_sms, b_vp_cl, b_z_nd)
+    bot.send_message(message.chat.id, text.vdp_zag, reply_markup=kzr)
+# ID вводимо кому пишемо-------------------------
+@bot.message_handler(func=lambda message: message.text == text.sms_zagal)
+def button_sd(message):
+    bot.send_message(message.chat.id, text.ent_tx)
+
+    @bot.message_handler(func=lambda d: message.chat.id == ADM_ID)
+    def send_sms(m):
+        h = open('tx_id_sms.txt', 'r')
+        vp = h.read()
+        h.close()
+        sms = m.text
+        bot.send_message(vp, sms)
+        message.chat.id = 0
+
+
+@bot.message_handler(func=lambda message: message.text == text.id_otr)
+def button_sd(message):
+    bot.send_message(message.chat.id, text.id_zam)
+
+    @bot.message_handler(func=lambda d: message.chat.id == ADM_ID)
+    def send_sms(m):
+        vp = m.text
+        h = open('tx_id_sms.txt', 'w')
+        h.write(str(vp))
+        h.close()
+        bot.send_message(constants.chat_r_id, text.st_ok)
+        message.chat.id = 0
+
+
+@bot.message_handler(func=lambda message: message.text == text.cl_zag)
+def button_sd(message):
+    h = open('tx_id_sms.txt', 'w')
+    h.write(str(0))
+    h.close()
+    bot.send_message(message.chat.id, text.inf_cl)
+    message.chat.id = 0
 
 
 bot.polling(none_stop=True, interval=1)
