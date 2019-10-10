@@ -14,7 +14,7 @@ p1 = 0
 sp = 0
 i = 0
 
-ADM_ID = 441757334  # ID админа групы -----------------------------------------------
+ADM_ID = 477513583  # ID админа групы -----------------------------------------------
 bot = telebot.TeleBot(constants.token)
 bot.send_message(constants.chat_id, text.start)
 # NEW USER ---------------------------------------------------------------------------
@@ -115,7 +115,7 @@ def handle_start(message):
     but_adm = types.InlineKeyboardButton(text=text.text_but_adm)
     kbo.add(button_st, button_sl, button_pv, button_b, button_vps)
     kbo.add(button_cl, button_s)
-    user_adm = 441757334  # ID - АДМИНА БОТА ------------------------------------------------
+    user_adm = 477513583  # ID - АДМИНА БОТА ------------------------------------------------
     if message.chat.id == user_adm:
         kbo.add(but_adm)
     bot.send_photo(message.chat.id, photo=open(constants.bot_img, 'rb'))
@@ -138,7 +138,7 @@ def button_adm(message):
     but_adm = types.InlineKeyboardButton(text=text.text_but_adm)
     kbo.add(button_st, button_sl, button_pv, button_b, button_vps)
     kbo.add(button_cl, button_s)
-    if message.chat.id == 441757334:  # ID - АДМИНА БОТА ------------------------------------------------
+    if message.chat.id == 477513583:  # ID - АДМИНА БОТА ------------------------------------------------
         kbo.add(but_adm)
     bot.send_message(message.chat.id, text.tx_wl, reply_markup=kbo)
 # MENU 🚀 Заказ рекламы---------------------------------------------------------------
