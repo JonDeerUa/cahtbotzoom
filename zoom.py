@@ -32,19 +32,19 @@ def handler_text(message):
     # USER DELETE --------------------------------------------------------------------------
 
 
-@bot.message_handler(content_types=['left_chat_member'])
-def handler_text(message):
-    h = open('tx_zak.txt', 'r')
-    ztx = h.read()
-    h.close()
-    h = open('z_one_day.txt', 'r')
-    opr = h.read()
-    h.close()
-    f = open('z_seven_days.txt', 'r')
-    spr = f.read()
-    f.close()
-    bot.delete_message(message.chat.id, message.message_id)
-    bot.send_message(message.chat.id, text.info_but_zak + ztx + text.info_lin + text.post_pr + opr + text.on_d + text.ps_pr + spr + text.sev_d)
+# @bot.message_handler(content_types=['left_chat_member'])
+# def handler_text(message):
+#    h = open('tx_zak.txt', 'r')
+#    ztx = h.read()
+#    h.close()
+#    h = open('z_one_day.txt', 'r')
+#    opr = h.read()
+#    h.close()
+#    f = open('z_seven_days.txt', 'r')
+#    spr = f.read()
+#    f.close()
+#    bot.delete_message(message.chat.id, message.message_id)
+#    bot.send_message(message.chat.id, text.info_but_zak + ztx + text.info_lin + text.post_pr + opr + text.on_d + text.ps_pr + spr + text.sev_d)
 # Spam  2 SMS Реклама Плюс --------------------------------------------------------------------
 
 
