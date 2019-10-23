@@ -31,6 +31,7 @@ def button_adm(message):
         bot.send_message(m.chat.id, text.zg + z)
         global s
         s = 2
+        m.chat.id = 0
         bot.send_message(message.chat.id, text.zl2)
         @bot.message_handler(func=lambda o: s == 2)
         def button_o(op):
@@ -39,6 +40,7 @@ def button_adm(message):
             bot.send_message(op.chat.id, text.pr_ent)
             global s
             s = 3
+            op.chat.id = 0
             @bot.message_handler(func=lambda p: s == 3)
             def button_pr(pr):
                 p = pr.text
@@ -46,7 +48,7 @@ def button_adm(message):
                 now = datetime.datetime.now()
                 print(now)
                 d = message.message_id + 9
-                bot.send_message(op.chat.id, {text.zg + z + '\n' + text.ln +
+                bot.send_message(pr.chat.id, {text.zg + z + '\n' + text.ln +
                                               '\n' + text.op + o +
                                               '\n' + text.ln + '\n' + text.pr + p + '\n' +
                                               text.cont + '@' + message.from_user.username +
@@ -58,7 +60,7 @@ def button_adm(message):
                 but_y = types.InlineKeyboardButton(text=text.tx_yes)
                 but_n = types.InlineKeyboardButton(text=text.tx_no)
                 key.add(but_y, but_n)
-                bot.send_message(op.chat.id, text.send, reply_markup=key)
+                bot.send_message(pr.chat.id, text.send, reply_markup=key)
 
 
 @bot.message_handler(func=lambda message: message.text == text.tx_yes)
