@@ -1,2 +1,0 @@
-pyperclip==1.7.0
-pytelegrambotapi==3.6.6
