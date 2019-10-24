@@ -59,7 +59,7 @@ def button_adm(message):
                 global d
                 global p
                 p = pr.text
-                now = datetime.datetime.now()
+                now = datetime.date.today()
                 d = pr.message_id + 1
                 bot.send_message(pr.chat.id, {text.zg + z + '\n' + text.ln +
                                               '\n' + text.op + o +
