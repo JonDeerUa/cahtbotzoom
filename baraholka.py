@@ -64,7 +64,7 @@ def button_adm(message):
                 bot.send_message(pr.chat.id, {text.zg + z + '\n' + text.ln +
                                               '\n' + text.op + o +
                                               '\n' + text.ln + '\n' + text.pr + p + '\n' +
-                                              text.cont + '@' + message.from_user.username +
+                                              text.cont + '@' + pr.from_user.username +
                                               '\n' + text.ln +
                                               '\n' + text.idp + str(d) +
                                               '\n' + text.tm + str(now)
