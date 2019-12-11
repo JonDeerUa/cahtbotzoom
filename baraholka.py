@@ -69,12 +69,20 @@ def button_adm(message):
                                               '\n' + text.idp + str(d) +
                                               '\n' + text.tm + str(now)
                                               })
-                key = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
-                but_y = types.InlineKeyboardButton(text=text.tx_yes)
-                but_n = types.InlineKeyboardButton(text=text.tx_no)
-                key.add(but_y, but_n)
-                bot.send_message(pr.chat.id, text.send, reply_markup=key)
+                bot.send_message(pr.chat.id, text.photo)
                 pr.chat.id = 0
+                @bot.message_handler(content_types='photo')
+                def button_ft(ft):
+                    file = str(ft.photo[-1].file_id)
+                    key = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
+                    but_y = types.InlineKeyboardButton(text=text.tx_yes)
+                    but_n = types.InlineKeyboardButton(text=text.tx_no)
+                    key.add(but_y, but_n)
+                    bot.send_photo(ft.chat.id, str(file), {text.zg + z + '\n' + text.ln + '\n' + text.op + o + '\n' +
+                                                           text.ln + '\n' + text.pr + p + '\n' + text.cont + '@' +
+                                                           pr.from_user.username + '\n' + text.ln + '\n' + text.idp +
+                                                           str(d) + '\n' + text.tm + str(now)}, reply_markup=key)
+                    pr.chat.id = 0
 
 
 @bot.message_handler(func=lambda message: message.text == text.tx_yes)
@@ -126,12 +134,6 @@ def fin(c):
         bot.send_message(c.message.chat.id, text.start_bot)
     if c.data == text.b_pr:
         bot.send_message(c.message.chat.id, text.inf_pr)
-
-
-@bot.message_handler(content_types='photo')
-def button_ft(message):
-    u = str('AgADAgADG6wxG2cTeUnrtw-aJuohk1fhtw8ABAEAAwIAA20AA9aoBQABFgQ')
-    bot.send_photo(message.chat.id, u, text.no_phono)
 
 
 bot.polling(none_stop=True, interval=1)
