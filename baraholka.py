@@ -10,6 +10,26 @@ o = 0
 p = 0
 
 bot = telebot.TeleBot(constants.token)
+bot.send_message(constants.id_group, text.start_bot)
+
+
+@bot.message_handler(content_types=['new_chat_members'])
+def handler_text(message):
+    bot.reply_to(message, {text.new_user.format(message.from_user.first_name) + text.tx_pravilo + text.start_bot})
+
+
+@bot.message_handler(func=lambda message: message.chat.id == -1001465383382, content_types=['photo', 'text'])
+def but_ft(message):
+    if message.from_user.first_name != 'Telegram':
+        st = ['creator', 'administrator', 'member']
+        for ch in st:
+            if ch == bot.get_chat_member(chat_id=constants.id_group, user_id=message.from_user.id).status:
+                break
+        else:
+            bot.delete_message(message.chat.id, message.message_id)
+            bot.send_message(message.chat.id, text.bl_user + constants.ch_name)
+
+
 # БОТ ---------------------------------------------------------------------------
 @bot.message_handler(commands=['start'])
 def handle_start(message):
@@ -72,7 +92,7 @@ def button_adm(message):
                 bot.send_message(pr.chat.id, text.photo)
                 pr.chat.id = 0
                 @bot.message_handler(content_types='photo')
-                def button_ft(ft):
+                def butt_ft(ft):
                     file = str(ft.photo[-1].file_id)
                     key = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
                     but_y = types.InlineKeyboardButton(text=text.tx_yes)
@@ -95,7 +115,7 @@ def button_zak(message):
     button_inf = types.InlineKeyboardButton(text=text.tx_inf)
     kbo.add(button_zm)
     kbo.add(button_nz, button_inf)
-    bot.forward_message(constants.id_chat, message.chat.id, message_id=d)
+    bot.forward_message(constants.id_group, message.chat.id, message_id=d)
     bot.send_message(message.chat.id, text.send_ok, reply_markup=kbo)
     d = 0
     s = 0
