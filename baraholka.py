@@ -27,7 +27,7 @@ def but_ft(message):
                 break
         else:
             bot.delete_message(message.chat.id, message.message_id)
-            bot.send_message(message.chat.id, text.bl_user + constants.ch_name)
+            bot.send_message(message.chat.id, text.bl_user.format(message.from_user.first_name) + constants.ch_name)
 
 
 # БОТ ---------------------------------------------------------------------------
@@ -56,6 +56,7 @@ def button_adm(message):
     global s
     s = 1
     message.chat.id = 0
+
     @bot.message_handler(func=lambda m: s == 1)
     def button_zgl(m):
         global z
@@ -65,6 +66,7 @@ def button_adm(message):
         global s
         s = 2
         m.chat.id = 0
+
         @bot.message_handler(func=lambda fg: s == 2)
         def button_o(op):
             global o
@@ -74,6 +76,7 @@ def button_adm(message):
             global s
             s = 3
             op.chat.id = 0
+
             @bot.message_handler(func=lambda pf: s == 3)
             def button_pr(pr):
                 global d
@@ -91,6 +94,7 @@ def button_adm(message):
                                               })
                 bot.send_message(pr.chat.id, text.photo)
                 pr.chat.id = 0
+
                 @bot.message_handler(content_types='photo')
                 def butt_ft(ft):
                     file = str(ft.photo[-1].file_id)
