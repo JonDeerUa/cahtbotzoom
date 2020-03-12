@@ -37,8 +37,10 @@ def handle_start(message):
     button_zm = types.InlineKeyboardButton(text=text.but_zam)
     button_nz = types.InlineKeyboardButton(text=text.tx_no)
     button_inf = types.InlineKeyboardButton(text=text.tx_inf)
+    button_prod = types.InlineKeyboardButton(text=text.prod)
     kbo.add(button_zm)
     kbo.add(button_nz, button_inf)
+    kbo.add(button_prod)
     bot.send_message(message.chat.id, text.start_bot, reply_markup=kbo)
 
 
@@ -158,6 +160,12 @@ def fin(c):
         bot.send_message(c.message.chat.id, text.start_bot)
     if c.data == text.b_pr:
         bot.send_message(c.message.chat.id, text.inf_pr)
+# MENU КНОПКИ Проекти--------------------------------------------------------------
+
+
+@bot.message_handler(func=lambda message: message.text == text.prod)
+def button_bot(message):
+    bot.send_message(message.chat.id, text.info_prod)
 
 
 bot.polling(none_stop=True, interval=1)
