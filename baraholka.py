@@ -133,8 +133,10 @@ def button_zak(message):
     button_zm = types.InlineKeyboardButton(text=text.but_zam)
     button_nz = types.InlineKeyboardButton(text=text.tx_no)
     button_inf = types.InlineKeyboardButton(text=text.tx_inf)
+    button_prod = types.InlineKeyboardButton(text=text.prod)
     kbo.add(button_zm)
     kbo.add(button_nz, button_inf)
+    kbo.add(button_prod)
     bot.send_message(message.chat.id, text.start_bot, reply_markup=kbo)
     global d
     global s
