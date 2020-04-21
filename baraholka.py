@@ -20,6 +20,11 @@ def handler_text(message):
                    {text.new_user.format(message.from_user.first_name) + text.tx_pravilo + text.start_bot})
 
 
+@bot.message_handler(content_types=['left_chat_member'])
+def handler_text(message):
+    bot.delete_message(message.chat.id, message.message_id)
+
+
 @bot.message_handler(func=lambda message: message.chat.id == -1001465383382, content_types=['photo', 'text'])
 def but_ft(message):
     if message.from_user.first_name != 'Telegram':
