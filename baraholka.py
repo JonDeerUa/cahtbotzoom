@@ -114,7 +114,8 @@ def button_adm(message):
                     bot.send_photo(ft.chat.id, str(file), {text.zg + z + '\n' + text.ln + '\n' + text.op + o + '\n' +
                                                            text.ln + '\n' + text.pr + p + '\n' + text.cont + '@' +
                                                            pr.from_user.username + '\n' + text.ln + '\n' + text.idp +
-                                                           str(d) + '\n' + text.tm + str(now)}, reply_markup=key)
+                                                           str(d) + '\n' + text.tm + str(now) + '\n' + text.dos},
+                                   reply_markup=key)
                     pr.chat.id = 0
 
 
